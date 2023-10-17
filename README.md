@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Techie
 
-## Getting Started
+## BLOG APPLICATION
 
-First, run the development server:
+### OVERVIEW
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+The fundamental concept is that anyone visiting the website should be able to read a blog post written by them or another user because the app has a landing page that lists a variety of articles written by different authors.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Technologies:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Next JS
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Python FastAPI
 
-## Learn More
+MySQL
 
-To learn more about Next.js, take a look at the following resources:
+### GOALS
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Use python for backend development
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Work with user authentication and authorization
 
-## Deploy on Vercel
+### SPECIFICATIONS
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The Blog should have a Home Page, About Page, Contact Page.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The Blog application should have a user authentication where a user can create an account and login so that they  could be able to create a blog, also the Blog should have the logout ability.
+
+### MILESTONES
+
+There should be a variety of users who can access the program and contribute content to the blogging platform.
+
+Every user needs to have a first name, last name, email, and (you can add other attributes you want to store about the user)
+
+The blog app should allow users to register and log in.
+
+The homepage of the app should provide a list of blogs produced by various users.
+
+Each blog should show the user that created it and the time the blog was created.
+
+Signed in and non signed in users should be able to visit this page
+
+If a user is signed in and visits an article they created, they should see an edit button to edit either the title or the body of the article.
+
+Clicking on the edit button on an article should take the user to the edit page.
+
+Only users who are signed in should be able to see the button to create an article on the app's homepage page. The user should be directed to the create page after clicking the button.
+
+Your database should contain User information and should be able to store every information about the User there.
+
+Try to be creative as we will be paying attention to the details.
+
+### DATA MODELS
+
+User Model
+
+Id
+
+Email
+
+Name
+
