@@ -1,0 +1,974 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+*{
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  scroll-behavior: smooth;
+}
+
+body {
+ background-color: #ffffff;
+ color: #0C1713;
+ overflow-x: hidden;
+}
+
+.nav-menu-wrapper{
+  position: relative;
+  left:12%;
+}
+
+.menu-icons{
+  position: relative;
+  left:24%
+}
+
+
+
+.banner_post .col-lg-12, .banner_post, .banner_post  {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.banner_post .banner_post_bg_1 {
+  background-image: url("../../public/assets/images/banner_blog/react.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto;
+}
+
+.banner_post .banner_post_bg_2 {
+  background-image: url("../../public/assets/images/banner_blog/python.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.banner_post .banner_post_bg_3 {
+  background-image: url("../../public/assets/images/banner_blog/devops.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.banner_post .h2 {
+  line-height: 1.333;
+  font-family: "Cardo", serif;
+  font-weight: 600;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.banner_post a h2:hover {
+  -webkit-transition: 0.5s;
+  transition: 0.5s;  
+}
+
+.banner_post h5 {
+  font-size: 15px;
+  text-transform: capitalize;
+  font-family: "Monteserrat", sans-serif;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.banner_post p {
+  font-size: 13px;
+  color: #8a8a8a;
+  margin-top: 15px;
+}
+
+.banner_post p span {
+  font-size: 13px;
+  font-weight: 800;
+  color: #0a0a0a;
+}
+
+.banner_post .banner_post_1 {
+  position: relative;
+  height: 700px;
+  width: 33%;
+  float: left;
+  margin: 0 auto;
+}
+
+@media (max-width: 576px) {
+  .banner_post .banner_post_1 {
+    width: 100%;
+    height: 400px;
+    margin-bottom: 30px;
+  }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  .banner_post .banner_post_1 {
+    width: 48%;
+    height: 400px;
+    margin-bottom: 30px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .banner_post .banner_post_1 {
+    width: 48%;
+    height: 400px;
+    margin-bottom: 30px;
+  }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  .banner_post .banner_post_1 {
+    height: 400px;
+    margin-bottom: 40px;
+  }
+}
+
+.banner_post .banner_post_1 .banner_post_iner {
+  padding: 45px;
+  position: absolute;
+  bottom: -150px;
+  left: 0;
+  right: 0;
+  max-width: 490px;
+  margin: 0 auto;
+}
+
+@media (max-width: 576px) {
+  .banner_post .banner_post_1 .banner_post_iner {
+    bottom: 0px;
+    padding: 20px;
+    max-width: 300px;
+  }
+  .banner_post .banner_post_1 .banner_post_iner h2 {
+    font-size: 25px;
+  }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  .banner_post .banner_post_1 .banner_post_iner {
+    bottom: 0px;
+    padding: 20px;
+  }
+  .banner_post .banner_post_1 .banner_post_iner h2 {
+    font-size: 25px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .banner_post .banner_post_1 .banner_post_iner {
+    bottom: 0px;
+    padding: 20px;
+  }
+  .banner_post .banner_post_1 .banner_post_iner h2 {
+    font-size: 25px;
+  }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  .banner_post .banner_post_1 .banner_post_iner {
+    padding: 20px;
+  }
+  .banner_post .banner_post_1 .banner_post_iner h2 {
+    font-size: 25px;
+  }
+}
+
+.ad{
+  position: relative;
+  top: 40%;
+  left: 14%;
+}
+
+
+.post_2 a:hover {
+  color: #F64C72 !important;
+}
+
+.post_2 img {
+  width: 100%;
+  height: auto;
+}
+
+.post_2 .post_text_1 h3 {
+  color: #2a2a2a;
+  line-height: 1.333;
+  font-family: "Cardo", serif;
+  font-weight: 600;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.post_2 .post_text_1 h3:hover {
+  color: #F64C72;
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  .post_2 .post_text_1 h3 {
+    font-size: 20px;
+  }
+}
+
+.post_2 .post_text_1 h5 {
+  font-size: 11px;
+  color: #F64C72;
+  text-transform: uppercase;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  margin-bottom: 14px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+@media (max-width: 576px) {
+  .post_2 .post_text_1 h5 {
+    margin-bottom: 10px;
+  }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  .post_2 .post_text_1 h5 {
+    margin-bottom: 10px;
+  }
+}
+
+.post_2 .post_text_1 h5:hover {
+  color: #F64C72;
+}
+
+.post_2 .post_text_1 p {
+  font-size: 13px;
+  color: #8a8a8a;
+  margin-top: 15px;
+  font-weight: 600;
+}
+
+@media (max-width: 576px) {
+  .post_2 .post_text_1 p {
+    margin-top: 10px;
+  }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  .post_2 .post_text_1 p {
+    margin-top: 10px;
+  }
+}
+
+.post_2 .post_text_1 p span {
+  font-size: 13px;
+  font-weight: 800;
+  color: #0a0a0a;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.post_2 .post_icon {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #ecf0f2;
+}
+
+@media (max-width: 576px) {
+  .post_2 .post_icon {
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  .post_2 .post_icon {
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .post_2 .post_icon {
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  .post_2 .post_icon {
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+}
+
+.post_2 .post_icon ul li {
+  display: inline-block;
+  text-transform: capitalize;
+  position: relative;
+  padding-left: 25px;
+  margin-right: 20px;
+  font-size: 13px;
+  color: #888888;
+}
+
+@media (max-width: 576px) {
+  .post_2 .post_icon ul li {
+    padding-left: 24px;
+    margin-right: 12px;
+  }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  .post_2 .post_icon ul li {
+    padding-left: 15px;
+    margin-right: 5px;
+  }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  .post_2 .post_icon ul li {
+    padding-left: 21px;
+    margin-right: 12px;
+  }
+}
+
+.post_2 .post_icon ul li i {
+  padding-top: 5px;
+  margin-right: 10px;
+  position: absolute;
+  left: 0;
+}
+
+@media (max-width: 576px) {
+  .post_2 .post_icon ul li i {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  .post_2 .post_icon ul li i {
+    font-size: 12px;
+  }
+}
+
+.post_2 .category_post_img {
+  position: relative;
+}
+
+.post_2 .category_post_img .category_btn {
+  position: absolute;
+  bottom: -5px;
+  border-top-right-radius: 10px;
+  padding: 15px 30px;
+  background-color: #fff;
+  color: #F64C72;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.post_2 .post_text_1 {
+  margin: 21px 0px 0;
+}
+
+@media (max-width: 576px) {
+  .post_2 .post_text_1 {
+    margin: 20px 0 0;
+  }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  .post_2 .post_text_1 {
+    margin: 20px 0 0;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .post_2 .post_text_1 {
+    margin: 20px 0 0;
+  }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  .post_2 .post_text_1 {
+    margin: 20px 0 0;
+  }
+}
+
+.post_2 .post_text_1 p {
+  font-size: 13px;
+  color: #8a8a8a;
+  margin: 5px 0px 0px;
+}
+
+.post_2 .post_text_1 p span {
+  font-size: 13px;
+  font-weight: 800;
+  color: #0a0a0a;
+}
+
+.post_1 {
+  position: relative;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.post_1 .single_post_text {
+  padding: 40px 10px;
+  display: inline-block;
+  text-align: center;
+  background-color: #fff;
+  margin-top: -50px;
+  max-width: 320px;
+}
+
+
+
+@media (max-width: 991px) {
+  .post_1 .single_post_text {
+    padding: 20px 10px;
+  }
+}
+
+.post_1 .single_post_text {
+  color: #553D67;
+  margin-bottom: 17px;
+}
+
+.post_1 .single_post_text h2 {
+  margin-bottom: 21px;
+  font-size: 24px;
+}
+
+@media (max-width: 991px) {
+  .post_1 .single_post_text h2 {
+    margin-bottom: 10px;
+  }
+}
+
+.feature_post .single_post_text {
+  margin-top: -50px;
+  max-width: 520px;
+  padding: 50px 70px;
+}
+
+@media (max-width: 991px) {
+  .feature_post .single_post_text {
+    padding: 30px 15px;
+  }
+}
+
+.feature_post .single_post_text h2 {
+  font-size: 30px;
+}
+
+@media (max-width: 991px) {
+  .feature_post .single_post_text h2 {
+    font-size: 25px;
+  }
+}
+
+.page_pageniation .page-link {
+  border: 0px solid transparent;
+  color: #2a2a2a;
+  font-size: 20px;
+}
+
+
+
+
+@media (max-width: 1200px) {
+  .nav-menu-wrapper{
+    position: relative;
+    left:5%;
+  }
+  .logo{
+    position: relative !important;
+    left: -10% !important;
+  }
+  .menu-icons{
+    position: relative;
+    left: 5% 
+  }
+}
+
+
+
+@media (max-width: 768px) {
+  .mobile-menu-button {
+    display: block;
+    position: relative !important;
+    left: 40% !important;
+  }
+
+  #mobile-menu {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 60px; 
+    right: 0;
+    left: 0;
+    background-color: white;
+    z-index: 999;
+    border-top: 1px solid #ccc;
+  }
+
+  #mobile-menu.active {
+    display: flex;
+  }
+
+  .nav-menu-wrapper, .menu-icons{
+    display:none;
+  }
+
+}
+
+@media (max-width: 500px){
+  .spaced_title{
+    font-size: large !important;
+  }
+  .gold_title{
+    font-size:xx-large;
+    line-height: normal;
+  }
+  
+  .logo{
+    position: relative;
+    right: 32%;
+  }
+
+  .login{
+    position: relative;
+    left: 7%;
+  }
+
+  .spaced{
+    position: relative;
+    left: 10%;
+  }
+
+
+}
+
+
+
+.catagory_post {
+  padding: 100px 0px 45px;
+}
+
+@media (max-width: 576px) {
+  .catagory_post {
+    padding: 70px 0px 50px;
+  }
+  .catagory_post .category_btn {
+    left: 0;
+  }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  .catagory_post {
+    padding: 70px 0px 70px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .catagory_post {
+    padding: 70px 0px;
+  }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  .catagory_post {
+    padding: 100px 0px 45px;
+  }
+}
+
+
+
+.all_post .sidebar_widget h3 {
+  font-size: 20px;
+}
+
+/* line 7, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+.all_post .sidebar_widget .btn_1 {
+  display: block;
+  text-align: center;
+  margin-top: 15px;
+}
+
+/* line 12, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+.all_post .sidebar_widget .form-group {
+  margin-bottom: 0;
+}
+
+.all_post .sidebar_widget .single_sidebar_wiget {
+  background-color: #FEF9EF;
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 991px) {
+  /* line 16, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+  .all_post .sidebar_widget .single_sidebar_wiget {
+    padding: 20px 15px 15px;
+  }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  /* line 16, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+  .all_post .sidebar_widget .single_sidebar_wiget {
+    padding: 20px 15px 15px;
+  }
+}
+
+/* line 28, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+.all_post .sidebar_widget .sidebar_tittle h3 {
+  font-size: 24px;
+  color: #2a2a2a;
+  font-weight: 600;
+  margin-bottom: 27px;
+  position: relative;
+}
+
+/* line 35, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+.all_post .sidebar_widget .sidebar_tittle h3:after {
+  position: absolute;
+  content: "";
+  width: 60px;
+  height: 2px;
+  bottom: 12px;
+  background-color: #F64C72;
+  left: 200px;
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  /* line 35, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+  .all_post .sidebar_widget .sidebar_tittle h3:after {
+    left: 170px;
+    width: 40px;
+  }
+}
+
+@media (max-width: 991px) {
+  /* line 28, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+  .all_post .sidebar_widget .sidebar_tittle h3 {
+    margin-bottom: 20px;
+  }
+}
+
+/* line 54, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+.all_post .sidebar_widget .form-control {
+  border-radius: 0px !important;
+  font-size: 13px;
+  color: #999999;
+  font-weight: 400;
+  height: 52px;
+}
+
+/* line 60, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+.all_post .sidebar_widget .form-control:focus {
+  outline: none !important;
+  border-color: #e9ecee;
+}
+
+/* line 65, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+.all_post .sidebar_widget .btn {
+  background-color: #F64C72;
+  color: #fff;
+  width: 50px;
+  margin-left: 10px;
+  border-radius: 0px;
+}
+
+/* line 75, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+.all_post .category ul li {
+  margin-bottom: 12px;
+  font-size: 18px;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 20px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+/* line 83, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+.all_post .category ul li:last-child {
+  margin-bottom: 0;
+}
+
+/* line 86, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+.all_post .category ul li a, .all_post .category ul li span {
+  color: #888888;
+  font-family: "Cardo", serif;
+}
+
+/* line 89, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+.all_post .category ul li a:hover, .all_post .category ul li span:hover {
+  color: #fff !important;
+}
+
+/* line 93, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+.all_post .category ul li:hover {
+  background-color: #F64C72;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+/* line 96, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+.all_post .category ul li:hover a, .all_post .category ul li:hover span {
+  color: #fff;
+}
+
+/* line 104, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+.all_post .tags ul li {
+  display: inline-block;
+}
+
+/* line 106, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+.all_post .tags ul li a {
+  display: inline-block;
+  border: 1px solid transparent;
+  background: #fff;
+  margin-bottom: 8px;
+  margin-right: 13px;
+  transition: all 0.3s ease 0s;
+  color: #888888;
+  font-size: 13px;
+  font-family: "Cardo", serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #2a2a2a;
+  width: 45px;
+  height: 45px;
+  text-align: center;
+  line-height: 45px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+/* line 124, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+.all_post .tags ul li a:hover {
+  border: 1px solid #F64C72;
+  background-color: #F64C72;
+  color: #fff !important;
+}
+
+/* line 136, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+.all_post .load_btn {
+  margin-top: 80px !important;
+}
+
+@media (max-width: 576px) {
+  /* line 136, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+  .all_post .load_btn {
+    margin-top: 30px !important;
+  }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  /* line 136, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+  .all_post .load_btn {
+    margin-top: 30px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  /* line 152, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+  .all_post .sidebar_widget {
+    margin-top: 50px;
+  }
+  /* line 155, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+  .all_post .post_3 {
+    margin-bottom: 20px;
+  }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  /* line 161, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+  .all_post .sidebar_widget {
+    margin-top: 50px;
+  }
+  /* line 164, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+  .all_post .post_3 {
+    margin-bottom: 20px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  /* line 170, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+  .all_post .sidebar_widget {
+    margin-top: 50px;
+  }
+  /* line 173, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+  .all_post .post_3 {
+    margin-bottom: 20px;
+  }
+}
+
+/* line 182, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+.single_catagory_post {
+  margin-bottom: 40px;
+}
+
+/* line 184, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+.single_catagory_post:last-child {
+  margin-bottom: 0px;
+}
+
+/* line 188, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+.archive_post {
+  padding: 100px 0px 65px;
+}
+
+@media (max-width: 576px) {
+  /* line 188, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+  .archive_post {
+    padding: 70px 0px 35px;
+  }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  /* line 188, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+  .archive_post {
+    padding: 70px 0px 35px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  /* line 188, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+  .archive_post {
+    padding: 80px 0px 45px;
+  }
+}
+
+/* line 202, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+.archive_post .post_2 .post_text_1 {
+  margin: 35px 0px;
+}
+
+/* line 207, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_all_post.scss */
+.blog_area .load_btn {
+  margin-top: 60px !important;
+}
+
+/**************** social contact part css start ****************/
+/* line 2, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_social_connect_part.scss */
+.social_connect_part {
+  overflow: hidden;
+}
+
+/* line 4, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_social_connect_part.scss */
+.social_connect_part .container-fluid {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+/* line 8, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_social_connect_part.scss */
+.social_connect_part .social_connect {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 576px) {
+  /* line 8, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_social_connect_part.scss */
+  .social_connect_part .social_connect {
+    display: inline-block;
+  }
+}
+
+/* line 15, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_social_connect_part.scss */
+.social_connect_part .single-social_connect {
+  width: 16.67%;
+  float: left;
+}
+
+@media (max-width: 576px) {
+  /* line 15, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_social_connect_part.scss */
+  .social_connect_part .single-social_connect {
+    width: 50%;
+  }
+}
+
+/* line 22, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_social_connect_part.scss */
+.social_connect_part .single-social_connect:hover .social_connect_img:after {
+  opacity: 0.5;
+  transform: scale(1);
+}
+
+/* line 26, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_social_connect_part.scss */
+.social_connect_part .single-social_connect:hover .social_connect_overlay span {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* line 31, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_social_connect_part.scss */
+.social_connect_part .single-social_connect .social_connect_img {
+  position: relative;
+  z-index: 1;
+}
+
+/* line 35, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_social_connect_part.scss */
+.social_connect_part .single-social_connect .social_connect_img:after {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  content: "";
+  background-color: #000;
+  opacity: 0;
+  z-index: 1;
+  transform: scale(0.5);
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+/* line 48, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_social_connect_part.scss */
+.social_connect_part .single-social_connect .social_connect_img img {
+  width: 100%;
+  height: auto;
+}
+
+/* line 55, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_social_connect_part.scss */
+.social_connect_part .single-social_connect .social_connect_img:hover .social_connect_overlay span {
+  visibility: visible;
+}
+
+/* line 61, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_social_connect_part.scss */
+.social_connect_part .single-social_connect .social_connect_img .social_connect_overlay span {
+  position: absolute;
+  text-align: center;
+  top: 45%;
+  left: 0;
+  right: 0;
+  z-index: 9;
+  color: #fff;
+  visibility: hidden;
+  font-size: 30px;
+}
+
+@media (max-width: 576px) {
+  /* line 61, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_social_connect_part.scss */
+  .social_connect_part .single-social_connect .social_connect_img .social_connect_overlay span {
+    font-size: 14px;
+    top: 40%;
+  }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  /* line 61, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_social_connect_part.scss */
+  .social_connect_part .single-social_connect .social_connect_img .social_connect_overlay span {
+    font-size: 14px;
+    top: 40%;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  /* line 61, /Applications/MAMP/htdocs/palash/cl/july 2019/191 Lifeleck Blog/191 Lifeleck Blog html/sass/_social_connect_part.scss */
+  .social_connect_part .single-social_connect .social_connect_img .social_connect_overlay span {
+    font-size: 20px;
+    top: 40%;
+  }
+}
