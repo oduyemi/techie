@@ -182,11 +182,11 @@ export const Frontend = () => {
                             </Box>
                             <Box className="single_catagory_item category">
                                 <ul className="list-unstyled">
-                                    <li><Link href="">Backend Development</Link> <span>(15)</span> </li>
-                                    <li><Link href="">Data Science</Link> <span>(15)</span> </li>
-                                    <li><Link href="">DeveOps</Link> <span>(15)</span> </li>
-                                    <li><Link href="">Frontend Development</Link> <span>(15)</span> </li>
-                                    <li><Link href="">Product Managment</Link> <span>(15)</span> </li>
+                                    <li><Link href="/backend">Backend Development</Link> <span>(15)</span> </li>
+                                    <li><Link href="/data-science">Data Science</Link> <span>(15)</span> </li>
+                                    <li><Link href="/devops">DevOps</Link> <span>(15)</span> </li>
+                                    <li><Link href="/frontend">Frontend Development</Link> <span>(15)</span> </li>
+                                    <li><Link href="/product-management">Product Managment</Link> <span>(15)</span> </li>
                                 </ul>
                             </Box>
                         </Box>
