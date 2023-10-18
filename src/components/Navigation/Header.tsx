@@ -33,17 +33,20 @@ export const Header = () => {
                 <Link href="/about" className="text-l block py-2 hover:text-fadedpee">
                     About
                 </Link>
-                <Link href="/frontend" className="text-l block py-2 hover:text-fadedpee">
-                    Frontend Development
-                </Link>
                 <Link href="/backend" className="text-l block py-2 hover:text-fadedpee">
                     Backend Development
                 </Link>
-                <Link href="/data" className="text-l block py-2 hover:text-fadedpee">
+                <Link href="/data-science" className="text-l block py-2 hover:text-fadedpee">
                     Data Science
                 </Link>
                 <Link href="/devops" className="text-l block py-2 hover:text-fadedpee">
                     DevOps
+                </Link>
+                <Link href="/frontend" className="text-l block py-2 hover:text-fadedpee">
+                    Frontend Development
+                </Link>
+                <Link href="/product-management" className="text-l block py-2 hover:text-fadedpee">
+                    Product Management
                 </Link>
 
                 <Link href="/contact" className="text-l block py-2 hover:text-fadedpee">Contact</Link>
@@ -131,7 +134,7 @@ export const Header = () => {
                                     <Link href="/backend" className="text-l hover:bg-gray-100 text-gray-700 block px-4 py-2">Backend Development</Link>
                                     </li>
                                     <li>
-                                        <Link href="/data" className="text-l hover:bg-gray-100 text-gray-700 block px-4 py-2">Data Science</Link>
+                                        <Link href="/data-science" className="text-l hover:bg-gray-100 text-gray-700 block px-4 py-2">Data Science</Link>
                                     </li>
                                     <li>
                                         <Link href="/devops" className="text-l hover:bg-gray-100 text-gray-700 block px-4 py-2">DevOps</Link>
@@ -140,7 +143,7 @@ export const Header = () => {
                                         <Link href="/frontend" className="text-l hover:bg-gray-100 text-gray-700 block px-4 py-2">Frontend Development</Link>
                                     </li>
                                     <li>
-                                        <Link href="/frontend" className="text-l hover:bg-gray-100 text-gray-700 block px-4 py-2">Product Management</Link>
+                                        <Link href="/product-management" className="text-l hover:bg-gray-100 text-gray-700 block px-4 py-2">Product Management</Link>
                                     </li>
                                 </ul> 
                             </Box>                                           

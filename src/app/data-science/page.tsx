@@ -1,13 +1,13 @@
 import { Header } from "@/components/Navigation/Header";
 import { Box } from "@mui/material";
-import AboutPage from "@/Pages/AboutPage";
+import DataSciencePage from "@/Pages/DataSciencePage";
 
-export default function contact() {
+export default function data() {
   return (
     <main>
       <Header />
       <Box>
-        <AboutPage />
+        <DataSciencePage />
       </Box>
       
     </main>

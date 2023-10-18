@@ -1,13 +1,13 @@
 import { Header } from "@/components/Navigation/Header";
 import { Box } from "@mui/material";
-import AboutPage from "@/Pages/AboutPage";
+import FrontendPage from "@/Pages/FrontendPage";
 
-export default function contact() {
+export default function frontend() {
   return (
     <main>
       <Header />
       <Box>
-        <AboutPage />
+        <FrontendPage />
       </Box>
       
     </main>
