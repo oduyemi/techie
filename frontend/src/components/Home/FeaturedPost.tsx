@@ -1,43 +1,76 @@
+"use client"
+import { useEffect, useState } from 'react';
 import { Box, Typography, FormControl, Button, TextField } from "@mui/material";
 import Link from "next/link";
 import Image from "next/image";
 
 
+
+
+
+interface Blog {
+    blog_img: string;
+    blog_category: any;
+    blog_title: string;
+    blog_date: string;
+    blog_author: string[];
+    // Add other properties as needed
+}
+
+
 export const FeaturedPost = () => {
+    const [latestBlog, setLatestBlog] = useState<Blog | null>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+        try {
+            const response = await fetch("localhost:8000/blogs");
+            const data = await response.json();
+            setLatestBlog(data[0]);
+        } catch (error) {
+            console.error('Error fetching blog data:', error);
+        }
+        };
+
+        fetchData();
+    }, []);
+
     return(
         <Box maxWidth="xl" className="all_post section_padding mt-10">
         <Box>
             <Box maxWidth="xl" sx={{ display:"flex", alignItems:"space-between", justifyContent:"center"}} className="mx-auto">
                 <Box >
                     <Box>
-                        <Box maxWidth="xl" className="single_post post_1 feature_post">
-                            <Box className="single_post_img mt-14">
-                                <Image
-                                    src="/assets/images/post/post_12.png"
-                                    alt="Featured Post"
-                                    width={400}
-                                    height={400}
-                                    className="h-full w-full object-cover"
-                                />
+                        {latestBlog && (
+                            <Box maxWidth="xl" className="single_post post_1 feature_post">
+                                <Box className="single_post_img mt-14">
+                                    <Image
+                                        src=""
+                                        alt="Featured Post"
+                                        width={400}
+                                        height={400}
+                                        className="h-full w-full object-cover"
+                                    />
+                                </Box>
+                                <Box className="single_post_text text-center">
+                                    <Link href=""><Typography variant="h5" className="text-pinkie text-sm">{latestBlog.blog_category}</Typography></Link> 
+                                    <Link href=""><Typography variant="h2" className="text-pee hover:text-pinkie text-4xl">{latestBlog.blog_title} </Typography></Link> 
+                                    <Typography variant="h5" className="text-fadedpee text-sm" paragraph>{`Posted on ${latestBlog.blog_date} by ${latestBlog.blog_author.join(', ')}`}</Typography>
+                                </Box>
                             </Box>
-                            <Box className="single_post_text text-center">
-                                <Link href=""><Typography variant="h5" className="text-pinkie text-sm"> Data Analytics / Data Science</Typography></Link> 
-                                <Link href=""><Typography variant="h2" className="text-pee hover:text-pinkie text-4xl">Let's talk data! </Typography></Link> 
-                                <Typography variant="h5" className="text-fadedpee text-sm" paragraph>Posted on April 15, 2019 by Fname Lname</Typography>
-                            </Box>
-                        </Box>
+                        )}
                     </Box>
                     <Box maxWidth="l" sx={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>
                     <Box >
                         <Box className="single_post post_1">
                             <Box className="single_post_img mr-4">
-                            <Image
+                            {/* <MuiImage
                                     src="/assets/images/post/post_18.png"
                                     alt="Featured Post"
                                     width={200}
                                     height={200}
                                     className="h-full w-full object-cover"
-                                />
+                                /> */}
                             </Box>
                             <Box className="single_post_text text-center mr-4">
                             <Link href=""><Typography variant="h5" className="text-pinkie text-sm"> Data Analytics / Data Science</Typography></Link> 
@@ -49,13 +82,13 @@ export const FeaturedPost = () => {
                     <Box >
                             <Box className="single_post post_1">
                                 <Box className="single_post_img">
-                                <Image
+                                {/* <MuiImage
                                     src="/assets/images/post/post_19.png"
                                     alt="Featured Post"
                                     width={200}
                                     height={200}
                                     className="h-full w-full object-cover"
-                                />
+                                /> */}
                                 </Box>
                                 <Box className="single_post_text text-center">
                                 <Link href=""><Typography variant="h5" className="text-pinkie text-sm"> Data Analytics / Data Science</Typography></Link> 
@@ -69,13 +102,13 @@ export const FeaturedPost = () => {
                     <Box >
                         <Box className="single_post post_1">
                             <Box className="single_post_img mr-4">
-                            <Image
+                            {/* <MuiImage
                                     src="/assets/images/post/post_20.png"
                                     alt="Featured Post"
                                     width={200}
                                     height={200}
                                     className="h-full w-full object-cover"
-                                />
+                                /> */}
                             </Box>
                             <Box className="single_post_text text-center mr-4">
                             <Link href=""><Typography variant="h5" className="text-pinkie text-sm"> Data Analytics / Data Science</Typography></Link> 
@@ -87,13 +120,13 @@ export const FeaturedPost = () => {
                     <Box >
                             <Box className="single_post post_1">
                                 <Box className="single_post_img">
-                                <Image
+                                {/* <MuiImage
                                     src="/assets/images/post/post_21.png"
                                     alt="Featured Post"
                                     width={200}
                                     height={200}
                                     className="h-full w-full object-cover"
-                                />
+                                /> */}
                                 </Box>
                                 <Box className="single_post_text text-center inner_title">
                                 <Link href=""><Typography variant="h5" className="text-pinkie text-sm"> Data Analytics / Data Science</Typography></Link> 
@@ -107,13 +140,13 @@ export const FeaturedPost = () => {
                     <Box >
                         <Box className="single_post post_1">
                             <Box className="single_post_img mr-4">
-                            <Image
+                            {/* <MuiImage
                                     src="/assets/images/post/post_18.png"
                                     alt="Featured Post"
                                     width={200}
                                     height={200}
                                     className="h-full w-full object-cover"
-                                />
+                                /> */}
                             </Box>
                             <Box className="single_post_text text-center mr-4">
                             <Link href=""><Typography variant="h5" className="text-pinkie text-sm"> Data Analytics / Data Science</Typography></Link> 
@@ -125,13 +158,13 @@ export const FeaturedPost = () => {
                     <Box >
                             <Box className="single_post post_1">
                                 <Box className="single_post_img">
-                                <Image
+                                {/* <MuiImage
                                     src="/assets/images/post/post_19.png"
                                     alt="Featured Post"
                                     width={200}
                                     height={200}
                                     className="h-full w-full object-cover"
-                                />
+                                /> */}
                                 </Box>
                                 <Box className="single_post_text text-center inner_title">
                                 <Link href=""><Typography variant="h5" className="text-pinkie text-sm"> Data Analytics / Data Science</Typography></Link> 
@@ -196,13 +229,13 @@ export const FeaturedPost = () => {
                             </Box>
                             <Box className="single_catagory_post post_2 ">
                                 <Box className="category_post_img">
-                                <Image
+                                {/* <MuiImage
                                         src="/assets/images/sidebar/sidebar_1.png"
                                         alt="Featured Post"
                                         width={10}
                                         height={10}
                                         className="h-20 w-20 object-cover"
-                                    />
+                                    /> */}
                                     {/* <img src="img/sidebar/sidebar_1.png" alt=""> */}
                                 </Box>
                                 <Box className="post_text_1 pr_30">
@@ -215,13 +248,13 @@ export const FeaturedPost = () => {
                             </Box>
                             <Box className="single_catagory_post post_2 ">
                                 <Box className="category_post_img">
-                                <Image
+                                {/* <MuiImage
                                         src="/assets/images/sidebar/sidebar_1.png"
                                         alt="Featured Post"
                                         width={10}
                                         height={10}
                                         className="h-20 w-20 object-cover"
-                                    />
+                                    /> */}
                                     {/* <img src="img/sidebar/sidebar_2.png" alt=""> */}
                                 </Box>
                                 <Box className="post_text_1 pr_30">
@@ -235,13 +268,13 @@ export const FeaturedPost = () => {
                             </Box>
                             <Box className="single_catagory_post post_2">
                                 <Box className="category_post_img">
-                                <Image
+                                {/* <MuiImage
                                         src="/assets/images/sidebar/sidebar_1.png"
                                         alt="Featured Post"
                                         width={10}
                                         height={10}
                                         className="h-20 w-20 object-cover"
-                                    />
+                                    /> */}
                                     {/* <img src="img/sidebar/sidebar_3.png" alt=""> */}
                                 </Box>
                                 <Box className="post_text_1 pr_30">

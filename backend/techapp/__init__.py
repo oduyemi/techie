@@ -1,5 +1,6 @@
 import os
 from fastapi import FastAPI, Depends, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import DeclarativeMeta, declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -8,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from instance.config import SECRET_KEY, DATABASE_URI
 
 
-starter = FastAPI()
+starter = FastAPI(title="Techie, Your Way", description="Where developer blogs meet community power!")
 
 
 engine = create_engine(DATABASE_URI)
@@ -23,6 +24,15 @@ def get_db():
     finally:
         db.close()
 
+
+
+
+from techapp import routes
+
+
+starter.include_router(routes.tech_starter, dependencies=[Depends(get_db)])
+
+
 starter.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -30,8 +40,3 @@ starter.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-from techapp import routes
-
-starter.include_router(routes.tech_starter, dependencies=[Depends(get_db)])

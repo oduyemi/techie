@@ -1,9 +1,12 @@
+from jose import jwt
+from .authorize import SECRET_KEY
 from typing import Any
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from sqlalchemy.orm import Session
 from techapp.database import SessionLocal
+from .authorize import SECRET_KEY, ALGORITHM
 from techapp import models
 
 
@@ -16,7 +19,7 @@ def get_token(db: Session = Depends(SessionLocal), token: str = Depends(oauth2_s
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
-        payload = jwt.decode(token, secret_key, algorithms=[ALGORITHM])
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         user_id: int = payload.get("sub")
         if user_id is None:
             raise credentials_exception
@@ -40,7 +43,7 @@ def get_user_from_session(token: str = Depends(get_token), db: Session = Depends
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
-        payload = jwt.decode(token, secret_key, algorithms=[ALGORITHM])
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         user_id: int = payload.get("sub")
         if user_id is None:
             raise credentials_exception
@@ -52,3 +55,23 @@ def get_user_from_session(token: str = Depends(get_token), db: Session = Depends
         raise credentials_exception
     return user.user_id
 
+
+def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        email: str = payload.get("sub")
+        if email is None:
+            raise credentials_exception
+    except JWTError:
+        raise credentials_exception
+
+    db_user = db.query(models.User).filter(models.User.user_email == email).first()
+    if db_user is None:
+        raise credentials_exception
+
+    return db_user
