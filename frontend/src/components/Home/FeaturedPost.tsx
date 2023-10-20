@@ -10,7 +10,7 @@ import Image from "next/image";
 
 interface Blog {
     blog_img: string;
-    blog_category: any;
+    // blog_category: ;
     blog_title: string;
     blog_date: string;
     blog_author: string[];
