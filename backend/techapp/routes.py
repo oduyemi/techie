@@ -38,7 +38,6 @@ def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
 
-upload_folder_path = Path(__file__).parent / "uploads"
 upload_folder_path = Path(__file__).parent.parent / "frontend" / "public" / "assets" / "uploads"
 
 os.makedirs(upload_folder_path, exist_ok=True)
