@@ -24,7 +24,7 @@ export const FeaturedPost = () => {
     useEffect(() => {
         const fetchData = async () => {
         try {
-            const response = await fetch("localhost:8000/blogs");
+            const response = await fetch("https://techieapi.onrender.com/blogs");
             const data = await response.json();
             setLatestBlog(data[0]);
         } catch (error) {

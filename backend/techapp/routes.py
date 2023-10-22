@@ -7,9 +7,9 @@ from fastapi.responses import JSONResponse
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session, joinedload
 from techapp import starter, models, schemas
-from techapp.schemas import UserResponse, Token, BlogResponse
+from techapp.schemas import UserResponse, Token, BlogResponse, BlogCategoryResponse, BlogCategoryPutResponse, BlogPutResponse, UserRequest
 from techapp import dependencies
-from techapp.dependencies import get_db, get_user_from_session, get_current_user
+from techapp.dependencies import get_db, get_user_from_session, get_current_user, create_jwt_token
 from typing import Optional, List
 from techapp.models import User, Blog, BlogCategory
 from sqlalchemy import func
@@ -18,11 +18,10 @@ from typing import List
 tech_starter = APIRouter()
 
 
-def format_blog_date(date):
-    if date:
-        return date.strftime("%d of %B, %Y")
-    else:
-        return "Unknown Date"
+
+def format_blog_date(blog_date):
+    return blog_date.isoformat() if blog_date else None
+
 
 def hash_password(password: str) -> str:
     salt = bcrypt.gensalt()
@@ -109,7 +108,9 @@ async def get_blog_categories(db: Session = Depends(get_db)):
             "blog_category": category.blog_category_name,
             "blog_category_description": category.blog_category_description,
             "blog_posts": [{
+                "blog_category": category.blog_category_name, 
                 "blog_title": blog.blog_title,
+                "blog_img": blog.blog_img,
                 "blog_content": blog.blog_content,
                 "author_first_name": blog.author_info.user_fname,
                 "author_last_name": blog.author_info.user_lname,
@@ -128,25 +129,25 @@ async def get_blog_category(id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Blog category not available!")
 
     blog_data = db.query(Blog).filter(Blog.blog_category_id == id).all()
-
-    if not blog_data:
-        raise HTTPException(status_code=422, detail="No blog posts available for this category")
-
     category_data = {
-        "id": category.blog_category_id,
-        "blog_category": category.blog_category_name,
-        "blog_posts": [{
+    "id": category.blog_category_id,
+    "blog_category": category.blog_category_name,
+    "blog_category_description": category.blog_category_description,
+    "blog_posts": [
+        {
+            "blog_category": category.blog_category_name,
             "blog_title": blog.blog_title,
-            "blog_description": blog.blog_description,
+            "blog_img": blog.blog_img,
             "blog_content": blog.blog_content,
-            "author_first_name": blog.author.user_fname,
-            "author_last_name": blog.author.user_lname,
-            "blog_date": format_blog_date(blog.blog_date)
-        } for blog in blog_data]
+            "author_first_name": blog.author_info.user_fname,
+            "author_last_name": blog.author_info.user_lname,
+            "blog_date": format_blog_date(blog.blog_date),
+        }
+        for blog in blog_data
+        ],
     }
 
     return category_data
-
 
 @starter.get("/blogs", response_model=List[schemas.BlogResponse])
 async def get_blog_posts(db: Session = Depends(get_db)):
@@ -159,23 +160,22 @@ async def get_blog_posts(db: Session = Depends(get_db)):
         user_data = blog_deets.author_info 
 
         blog_response = BlogResponse(
-            id = blog_deets.blog_id,
-            blog_title = blog_deets.blog_title,
-            blog_author = f"{user_data.user_fname} {user_data.user_lname}", 
-            blog_date = blog_deets.blog_date, 
-            blog_category_id = blog_deets.blog_category_id,
-            blog_content = blog_deets.blog_content,
-            blog_img = blog_deets.blog_img
+            id=blog_deets.blog_id,
+            blog_title=blog_deets.blog_title,
+            blog_author=f"{user_data.user_fname} {user_data.user_lname}", 
+            blog_date=blog_deets.blog_date, 
+            blog_content=blog_deets.blog_content,
+            blog_img=blog_deets.blog_img,
+            blog_category_name=blog_deets.post_category.blog_category_name
         )
         result.append(blog_response)
 
     return result
+    
 
-
-
-@starter.get("/blog/id", response_model=schemas.BlogResponse)
-async def get_blog_post(ID: int, db: Session = Depends(get_db)):
-    blog_post = db.query(Blog).filter(Blog.blog_id == ID).first()
+@starter.get("/blog/id", response_model=schemas.BlogIdResponse)
+async def get_blog_post(id: int, db: Session = Depends(get_db)):
+    blog_post = db.query(Blog).get(id)
     if not blog_post:
         raise HTTPException(status_code=404, detail="Blog post not available!")
 
@@ -183,20 +183,21 @@ async def get_blog_post(ID: int, db: Session = Depends(get_db)):
         join(Blog, User.user_id == Blog.blog_author_id).\
         join(BlogCategory, Blog.blog_category_id == BlogCategory.blog_category_id).\
         filter(User.user_id == blog_post.blog_author_id).all()
+    if not author_data or not author_data[0]:
+        raise HTTPException(status_code=404, detail="Author data not available!")
 
-    blogpost = {
-        "id": blog_post.blog_id,
-        "blog_title": blog_post.blog_title,
-        "blog_author": [{
-            "user_fname": user.user_fname,
-            "user_lname": user.user_lname,
-            "blog_category_name": blog_category.blog_category_name
-        } for user, blog_category in author_data],
-        "blog_date": format_blog_date(blog_post.blog_date) 
-    }
-
+    author = author_data[0][0]
+    blogpost = schemas.BlogIdResponse(
+        id=blog_post.blog_id,
+        blog_title=blog_post.blog_title,
+        blog_img=blog_post.blog_img,
+        author_first_name=author.user_fname,
+        author_last_name=author.user_lname,
+        blog_content=blog_post.blog_content,
+        blog_date=format_blog_date(blog_post.blog_date),
+        blog_category_name=blog_post.post_category.blog_category_name
+        )
     return blogpost
-
 
 
 
@@ -216,10 +217,13 @@ async def get_blogs_post_by_category(category_id: int, db: Session = Depends(get
             "blog_title": blog_deets.blog_title,
             "blog_author": f"{user_data.user_fname} {user_data.user_lname}",
             "blog_category": blog_deets.post_category.blog_category_name,
-            "blog_date": format_blog_date(blog_deets.blog_date)
+            "blog_date": format_blog_date(blog_deets.blog_date),
+            "blog_content": blog_deets.blog_content,  
+            "blog_img": blog_deets.blog_img,          
+            "blog_category_name": blog_deets.post_category.blog_category_name  
         }
-        result.append(post_info)
 
+        result.append(post_info)
     return result
 
 #     --   P R O T E C T E D   R O U T E S   --
@@ -245,16 +249,25 @@ async def create_blog_post(
     blog: schemas.BlogRequest,
     user_id: int = Depends(get_user_from_session),
     db: Session = Depends(dependencies.get_db)
-    ):
+):
     if not user_id:
         raise HTTPException(status_code=401, detail="You must be signed in to create a blog post")
 
-    available_article = await db.query(models.Blog).filter(func.lower(models.Blog.blog_title) == func.lower(Title)).first()
+    available_article = db.query(models.Blog).filter(func.lower(models.Blog.blog_title) == func.lower(blog.blog_title)).first()
+    
     if available_article:
         raise HTTPException(status_code=400, detail="This blog post has been published already!")
 
-    db_blogger = models.Blog(blog_title=Title, blog_category=Category, blog_author=Author, blog_img=FeaturedImage)
-    if Title and Category and Author and FeaturedImage:
+    db_blogger = models.Blog(
+        blog_title=blog.blog_title,
+        blog_category_id=blog.blog_category_id,
+        blog_content=blog.blog_content,
+        blog_author=user_id, 
+        blog_date=blog.blog_date,
+        blog_img=blog.blog_img
+    )
+
+    if blog.blog_title and blog.blog_category_id and blog.blog_content and user_id:
         try:
             db.add(db_blogger)
             db.commit()
@@ -263,9 +276,9 @@ async def create_blog_post(
         except Exception as e:
             db.rollback()
             raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
-
     else:
         raise HTTPException(status_code=400, detail="All fields are required!")
+
 
 
 @starter.post("/blog-category", response_model=schemas.BlogCategoryResponse)
@@ -298,7 +311,7 @@ async def create_blog_category(
         raise HTTPException(status_code=400, detail="All fields are required!")
 
 
-@tech_starter.post("/register", response_model=schemas.UserResponse)
+@tech_starter.post("/register", response_model=UserRequest)
 async def register_user(
     first_name: str = Form("fname"),
     last_name: str = Form("lname"),
@@ -306,11 +319,11 @@ async def register_user(
     password: str = Form("pwd"),
     confirm_password: str = Form("cpwd"),
     db: Session = Depends(get_db)
-    ):
+):
     if password != confirm_password:
         raise HTTPException(status_code=400, detail="Passwords do not match")
 
-    hashed_password = hash_password(password) 
+    hashed_password = hash_password(password)
     existing_user = db.query(models.User).filter(models.User.user_email == email).first()
     if existing_user:
         raise HTTPException(status_code=400, detail="Email is already taken")
@@ -319,24 +332,25 @@ async def register_user(
         raise HTTPException(status_code=400, detail="All fields are required")
 
     db_user = models.User(
-        user_fname = first_name,
-        user_lname = last_name,
-        user_email = email,
-        user_password = password,
-        user_hashed_password = hashed_password
+        user_fname=first_name,
+        user_lname=last_name,
+        user_email=email,
+        user_password=password,
+        user_hashed_password=hashed_password
     )
+
     try:
         db.add(db_user)
         db.commit()
         db.refresh(db_user)
         user_id = db_user.user_id
-        create_user_session(user_id)
-        return db_user
+        jwt_token = create_jwt_token(user_id, email)
+
+        return {"user_fname": db_user.user_fname, "user_lname": db_user.user_lname, "user_email": db_user.user_email, "user_password": db_user.user_hashed_password, "token": jwt_token}
 
     except Exception as e:
         db.rollback()
         raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
-
 
 
 @tech_starter.post("/login")
@@ -410,6 +424,24 @@ async def edit_profile(
     return user
 
 
+@starter.put("/blog-category/id", response_model=schemas.BlogCategoryRequest)
+async def update_category(id: int, category: str, description: Optional[str] = None, db: Session = Depends(get_db)):
+    category_check = db.query(BlogCategory).filter(BlogCategory.blog_category_id == id).first()
+
+    if not category_check:
+        raise HTTPException(status_code=404, detail=f"Category with ID {id} not found")
+
+    category_check.blog_category_name = category
+    if description is not None:
+        category_check.blog_category_description = description
+
+    db.commit()
+    return {"blog_category_name": category_check.blog_category_name, "blog_category_description": category_check.blog_category_description}
+
+
+
+
+
 @starter.put("/blog/{blog_id}", response_model=schemas.BlogResponse)
 async def update_blog_post(
     blog_id: int,
@@ -442,13 +474,13 @@ async def update_blog_post(
 
 #     --   D E L E T E   R E Q U E S T S   --
 
-@starter.delete("/blog/{blog_id}", response_model=schemas.BlogResponse)
+@starter.delete("/blog/{id}", response_model=schemas.BlogPutResponse)
 async def delete_blog(
     blog_id: int,
     user_id: int = Depends(get_user_from_session),
     db: Session = Depends(get_db)
 ):
-    existing_blog = db.query(models.Blog).filter(models.Blog.blog_id == blog_id).first()
+    existing_blog = db.query(models.Blog).filter(models.Blog.blog_id == id).first()
     if not existing_blog:
         raise HTTPException(status_code=404, detail="Blog post not found")
 
@@ -461,7 +493,7 @@ async def delete_blog(
     return existing_blog
 
 
-@starter.delete("/blog-category/{id}", response_model=schemas.BlogCategoryResponse)
+@starter.delete("/blog-category/{id}", response_model=schemas.BlogCategoryPutResponse)
 async def delete_blog_category(blog_category_id: int, db: Session = Depends(dependencies.get_db)):
     existing_category = db.query(models.BlogCategory).filter(models.BlogCategory.blog_category_id == blog_category_id).first()
     if not existing_category:
@@ -471,10 +503,7 @@ async def delete_blog_category(blog_category_id: int, db: Session = Depends(depe
     db.delete(existing_category)
     db.commit()
     return {
-        "message": "Blog category deleted!",
-        "data": {
-            "id": existing_category.blog_category_id,
-            "blog_category": existing_category.blog_category_name,
-            "blog_posts": [],
+        "id": existing_category.blog_category_id,
+        "blog_category": existing_category.blog_category_name,
+        "blog_posts": [],
         }
-    }
