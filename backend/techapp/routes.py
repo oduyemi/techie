@@ -268,7 +268,7 @@ async def create_blog_post(
     if available_article:
         raise HTTPException(status_code=400, detail="This blog post has been published already!")
 
-    image_path = f"uploads/{blog_img.filename}"
+    image_path = f"assets/uploads/{blog_img.filename}"
     with open(upload_folder_path / blog_img.filename, "wb") as image_file:
         image_file.write(blog_img.file.read())
 
@@ -470,7 +470,7 @@ async def update_blog_post(
         raise HTTPException(status_code=403, detail="You don't have permission to update this blog post")
 
     if blog_img:
-        image_path = f"uploads/{blog_img.filename}"
+        image_path = f"assets/uploads/{blog_img.filename}"
         with open(upload_folder_path / blog_img.filename, "wb") as image_file:
             image_file.write(blog_img.file.read())
         existing_blog.blog_img = image_path 

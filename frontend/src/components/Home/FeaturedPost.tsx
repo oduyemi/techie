@@ -43,13 +43,15 @@ export const FeaturedPost = () => {
                         {latestBlog && (
                             <Box maxWidth="xl" className="single_post post_1 feature_post">
                                 <Box className="single_post_img mt-14">
-                                    <Image
-                                        src=""
-                                        alt="Featured Post"
-                                        width={400}
-                                        height={400}
-                                        className="h-full w-full object-cover"
+                                <Image
+                                    src={`/uploads/${latestBlog.blog_img}`}
+                                    alt="Featured Post"
+                                    width={400}
+                                    height={400}
+                                    className="h-full w-full object-cover"
                                     />
+
+
                                 </Box>
                                 <Box className="single_post_text text-center">
                                     <Link href=""><Typography variant="h5" className="text-pinkie text-sm">{latestBlog.blog_category}</Typography></Link> 
