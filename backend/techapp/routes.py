@@ -1,4 +1,4 @@
-import bcrypt
+import bcrypt, os
 from datetime import timedelta, datetime
 from .database import SessionLocal
 from .authorize import create_access_token, verify_token, authenticate_user
@@ -39,6 +39,7 @@ def verify_password(plain_password, hashed_password):
 
 
 upload_folder_path = Path(__file__).parent / "uploads"
+os.makedirs(upload_folder_path, exist_ok=True)
 
 starter.mount("/uploads", StaticFiles(directory=upload_folder_path), name="uploads")
 
