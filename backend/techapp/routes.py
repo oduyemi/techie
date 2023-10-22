@@ -118,7 +118,7 @@ async def get_blog_categories(db: Session = Depends(get_db)):
             "blog_posts": [{
                 "blog_category": category.blog_category_name, 
                 "blog_title": blog.blog_title,
-                "blog_img": f"/uploads/{blog.blog_img}",
+                "blog_img": f"/assets/uploads/{blog.blog_img}",
                 "blog_content": blog.blog_content,
                 "author_first_name": blog.author_info.user_fname,
                 "author_last_name": blog.author_info.user_lname,
@@ -145,7 +145,7 @@ async def get_blog_category(id: int, db: Session = Depends(get_db)):
         {
             "blog_category": category.blog_category_name,
             "blog_title": blog.blog_title,
-            "blog_img": f"/uploads/{blog.blog_img}",
+            "blog_img": f"/assets/uploads/{blog.blog_img}",
             "blog_content": blog.blog_content,
             "author_first_name": blog.author_info.user_fname,
             "author_last_name": blog.author_info.user_lname,
@@ -173,7 +173,7 @@ async def get_blog_posts(db: Session = Depends(get_db)):
             blog_author = f"{user_data.user_fname} {user_data.user_lname}", 
             blog_date = blog_deets.blog_date, 
             blog_content = blog_deets.blog_content,
-            blog_img = f"/uploads/{blog_deets.blog_img}",
+            blog_img = f"/assets/uploads/{blog_deets.blog_img}",
             blog_category_name = blog_deets.post_category.blog_category_name
         )
         result.append(blog_response)
@@ -198,7 +198,7 @@ async def get_blog_post(id: int, db: Session = Depends(get_db)):
     blogpost = schemas.BlogIdResponse(
         id = blog_post.blog_id,
         blog_title = blog_post.blog_title,
-        blog_img = f"/uploads/{blog_post.blog_img}",
+        blog_img = f"/assets/uploads/{blog_post.blog_img}",
         author_first_name = author.user_fname,
         author_last_name = author.user_lname,
         blog_content = blog_post.blog_content,
@@ -227,7 +227,7 @@ async def get_blogs_post_by_category(category_id: int, db: Session = Depends(get
             "blog_category": blog_deets.post_category.blog_category_name,
             "blog_date": format_blog_date(blog_deets.blog_date),
             "blog_content": blog_deets.blog_content,  
-            "blog_img": f"/uploads/{blog_deets.blog_img}",         
+            "blog_img": f"/assets/uploads/{blog_deets.blog_img}",         
             "blog_category_name": blog_deets.post_category.blog_category_name  
         }
 
