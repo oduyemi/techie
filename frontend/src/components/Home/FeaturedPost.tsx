@@ -10,11 +10,10 @@ import Image from "next/image";
 
 interface Blog {
     blog_img: string;
-    // blog_category: ;
+    blog_category: string;
     blog_title: string;
     blog_date: string;
     blog_author: string[];
-    // Add other properties as needed
 }
 
 
@@ -55,7 +54,7 @@ export const FeaturedPost = () => {
                                 <Box className="single_post_text text-center">
                                     <Link href=""><Typography variant="h5" className="text-pinkie text-sm">{latestBlog.blog_category}</Typography></Link> 
                                     <Link href=""><Typography variant="h2" className="text-pee hover:text-pinkie text-4xl">{latestBlog.blog_title} </Typography></Link> 
-                                    <Typography variant="h5" className="text-fadedpee text-sm" paragraph>{`Posted on ${latestBlog.blog_date} by ${latestBlog.blog_author.join(', ')}`}</Typography>
+                                    <Typography variant="h5" className="text-fadedpee text-sm" paragraph>{`Posted on ${latestBlog.blog_date} by ${Array.isArray(latestBlog.blog_author) ? latestBlog.blog_author.join(', ') : latestBlog.blog_author}`}</Typography>
                                 </Box>
                             </Box>
                         )}
@@ -64,13 +63,13 @@ export const FeaturedPost = () => {
                     <Box >
                         <Box className="single_post post_1">
                             <Box className="single_post_img mr-4">
-                            {/* <MuiImage
+                            <Image
                                     src="/assets/images/post/post_18.png"
                                     alt="Featured Post"
                                     width={200}
                                     height={200}
                                     className="h-full w-full object-cover"
-                                /> */}
+                                />
                             </Box>
                             <Box className="single_post_text text-center mr-4">
                             <Link href=""><Typography variant="h5" className="text-pinkie text-sm"> Data Analytics / Data Science</Typography></Link> 
@@ -82,13 +81,13 @@ export const FeaturedPost = () => {
                     <Box >
                             <Box className="single_post post_1">
                                 <Box className="single_post_img">
-                                {/* <MuiImage
+                                <Image
                                     src="/assets/images/post/post_19.png"
                                     alt="Featured Post"
                                     width={200}
                                     height={200}
                                     className="h-full w-full object-cover"
-                                /> */}
+                                />
                                 </Box>
                                 <Box className="single_post_text text-center">
                                 <Link href=""><Typography variant="h5" className="text-pinkie text-sm"> Data Analytics / Data Science</Typography></Link> 
@@ -102,13 +101,13 @@ export const FeaturedPost = () => {
                     <Box >
                         <Box className="single_post post_1">
                             <Box className="single_post_img mr-4">
-                            {/* <MuiImage
+                            <Image
                                     src="/assets/images/post/post_20.png"
                                     alt="Featured Post"
                                     width={200}
                                     height={200}
                                     className="h-full w-full object-cover"
-                                /> */}
+                                />
                             </Box>
                             <Box className="single_post_text text-center mr-4">
                             <Link href=""><Typography variant="h5" className="text-pinkie text-sm"> Data Analytics / Data Science</Typography></Link> 
@@ -120,13 +119,13 @@ export const FeaturedPost = () => {
                     <Box >
                             <Box className="single_post post_1">
                                 <Box className="single_post_img">
-                                {/* <MuiImage
+                                <Image
                                     src="/assets/images/post/post_21.png"
                                     alt="Featured Post"
                                     width={200}
                                     height={200}
                                     className="h-full w-full object-cover"
-                                /> */}
+                                />
                                 </Box>
                                 <Box className="single_post_text text-center inner_title">
                                 <Link href=""><Typography variant="h5" className="text-pinkie text-sm"> Data Analytics / Data Science</Typography></Link> 
@@ -140,13 +139,13 @@ export const FeaturedPost = () => {
                     <Box >
                         <Box className="single_post post_1">
                             <Box className="single_post_img mr-4">
-                            {/* <MuiImage
+                            <Image
                                     src="/assets/images/post/post_18.png"
                                     alt="Featured Post"
                                     width={200}
                                     height={200}
                                     className="h-full w-full object-cover"
-                                /> */}
+                                />
                             </Box>
                             <Box className="single_post_text text-center mr-4">
                             <Link href=""><Typography variant="h5" className="text-pinkie text-sm"> Data Analytics / Data Science</Typography></Link> 
@@ -158,13 +157,13 @@ export const FeaturedPost = () => {
                     <Box >
                             <Box className="single_post post_1">
                                 <Box className="single_post_img">
-                                {/* <MuiImage
+                                <Image
                                     src="/assets/images/post/post_19.png"
                                     alt="Featured Post"
                                     width={200}
                                     height={200}
                                     className="h-full w-full object-cover"
-                                /> */}
+                                />
                                 </Box>
                                 <Box className="single_post_text text-center inner_title">
                                 <Link href=""><Typography variant="h5" className="text-pinkie text-sm"> Data Analytics / Data Science</Typography></Link> 
@@ -229,14 +228,14 @@ export const FeaturedPost = () => {
                             </Box>
                             <Box className="single_catagory_post post_2 ">
                                 <Box className="category_post_img">
-                                {/* <MuiImage
+                                <Image
                                         src="/assets/images/sidebar/sidebar_1.png"
                                         alt="Featured Post"
                                         width={10}
                                         height={10}
                                         className="h-20 w-20 object-cover"
-                                    /> */}
-                                    {/* <img src="img/sidebar/sidebar_1.png" alt=""> */}
+                                    />
+                                    {/* <Image src="img/sidebar/sidebar_1.png" alt=""> */}
                                 </Box>
                                 <Box className="post_text_1 pr_30">
                                     <Link href="single-blog.html">
@@ -248,14 +247,14 @@ export const FeaturedPost = () => {
                             </Box>
                             <Box className="single_catagory_post post_2 ">
                                 <Box className="category_post_img">
-                                {/* <MuiImage
+                                <Image
                                         src="/assets/images/sidebar/sidebar_1.png"
                                         alt="Featured Post"
                                         width={10}
                                         height={10}
                                         className="h-20 w-20 object-cover"
-                                    /> */}
-                                    {/* <img src="img/sidebar/sidebar_2.png" alt=""> */}
+                                    />
+                                    {/* <Image src="img/sidebar/sidebar_2.png" alt=""> */}
                                 </Box>
                                 <Box className="post_text_1 pr_30">
                                     
@@ -268,14 +267,14 @@ export const FeaturedPost = () => {
                             </Box>
                             <Box className="single_catagory_post post_2">
                                 <Box className="category_post_img">
-                                {/* <MuiImage
+                                <Image
                                         src="/assets/images/sidebar/sidebar_1.png"
                                         alt="Featured Post"
                                         width={10}
                                         height={10}
                                         className="h-20 w-20 object-cover"
-                                    /> */}
-                                    {/* <img src="img/sidebar/sidebar_3.png" alt=""> */}
+                                    />
+                                    {/* <Image src="img/sidebar/sidebar_3.png" alt=""> */}
                                 </Box>
                                 <Box className="post_text_1 pr_30">
                                     <Link href="">

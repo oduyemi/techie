@@ -39,6 +39,8 @@ def verify_password(plain_password, hashed_password):
 
 
 upload_folder_path = Path(__file__).parent / "uploads"
+upload_folder_path = Path(__file__).parent.parent / "frontend" / "public" / "assets" / "uploads"
+
 os.makedirs(upload_folder_path, exist_ok=True)
 
 starter.mount("/uploads", StaticFiles(directory=upload_folder_path), name="uploads")
@@ -267,7 +269,7 @@ async def create_blog_post(
         raise HTTPException(status_code=400, detail="This blog post has been published already!")
 
     image_path = f"uploads/{blog_img.filename}"
-    with open(image_path, "wb") as image_file:
+    with open(upload_folder_path / blog_img.filename, "wb") as image_file:
         image_file.write(blog_img.file.read())
 
     db_blogger = models.Blog(
@@ -469,7 +471,7 @@ async def update_blog_post(
 
     if blog_img:
         image_path = f"uploads/{blog_img.filename}"
-        with open(image_path, "wb") as image_file:
+        with open(upload_folder_path / blog_img.filename, "wb") as image_file:
             image_file.write(blog_img.file.read())
         existing_blog.blog_img = image_path 
 
