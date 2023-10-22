@@ -2,7 +2,9 @@ import bcrypt
 from datetime import timedelta, datetime
 from .database import SessionLocal
 from .authorize import create_access_token, verify_token, authenticate_user
-from fastapi import APIRouter, Request, status, Depends, HTTPException, Form
+from fastapi import APIRouter, Request, status, Depends, HTTPException, Form, File, UploadFile
+from fastapi.staticfiles import StaticFiles
+from pathlib import Path
 from fastapi.responses import JSONResponse
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session, joinedload
@@ -35,6 +37,10 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
+
+upload_folder_path = Path(__file__).parent / "uploads"
+
+starter.mount("/uploads", StaticFiles(directory=upload_folder_path), name="uploads")
 
 
 
@@ -110,7 +116,7 @@ async def get_blog_categories(db: Session = Depends(get_db)):
             "blog_posts": [{
                 "blog_category": category.blog_category_name, 
                 "blog_title": blog.blog_title,
-                "blog_img": blog.blog_img,
+                "blog_img": f"/uploads/{blog.blog_img}",
                 "blog_content": blog.blog_content,
                 "author_first_name": blog.author_info.user_fname,
                 "author_last_name": blog.author_info.user_lname,
@@ -137,7 +143,7 @@ async def get_blog_category(id: int, db: Session = Depends(get_db)):
         {
             "blog_category": category.blog_category_name,
             "blog_title": blog.blog_title,
-            "blog_img": blog.blog_img,
+            "blog_img": f"/uploads/{blog.blog_img}",
             "blog_content": blog.blog_content,
             "author_first_name": blog.author_info.user_fname,
             "author_last_name": blog.author_info.user_lname,
@@ -160,13 +166,13 @@ async def get_blog_posts(db: Session = Depends(get_db)):
         user_data = blog_deets.author_info 
 
         blog_response = BlogResponse(
-            id=blog_deets.blog_id,
-            blog_title=blog_deets.blog_title,
-            blog_author=f"{user_data.user_fname} {user_data.user_lname}", 
-            blog_date=blog_deets.blog_date, 
-            blog_content=blog_deets.blog_content,
-            blog_img=blog_deets.blog_img,
-            blog_category_name=blog_deets.post_category.blog_category_name
+            id = blog_deets.blog_id,
+            blog_title = blog_deets.blog_title,
+            blog_author = f"{user_data.user_fname} {user_data.user_lname}", 
+            blog_date = blog_deets.blog_date, 
+            blog_content = blog_deets.blog_content,
+            blog_img = f"/uploads/{blog_deets.blog_img}",
+            blog_category_name = blog_deets.post_category.blog_category_name
         )
         result.append(blog_response)
 
@@ -188,14 +194,14 @@ async def get_blog_post(id: int, db: Session = Depends(get_db)):
 
     author = author_data[0][0]
     blogpost = schemas.BlogIdResponse(
-        id=blog_post.blog_id,
-        blog_title=blog_post.blog_title,
-        blog_img=blog_post.blog_img,
-        author_first_name=author.user_fname,
-        author_last_name=author.user_lname,
-        blog_content=blog_post.blog_content,
-        blog_date=format_blog_date(blog_post.blog_date),
-        blog_category_name=blog_post.post_category.blog_category_name
+        id = blog_post.blog_id,
+        blog_title = blog_post.blog_title,
+        blog_img = f"/uploads/{blog_post.blog_img}",
+        author_first_name = author.user_fname,
+        author_last_name = author.user_lname,
+        blog_content = blog_post.blog_content,
+        blog_date = format_blog_date(blog_post.blog_date),
+        blog_category_name = blog_post.post_category.blog_category_name
         )
     return blogpost
 
@@ -219,7 +225,7 @@ async def get_blogs_post_by_category(category_id: int, db: Session = Depends(get
             "blog_category": blog_deets.post_category.blog_category_name,
             "blog_date": format_blog_date(blog_deets.blog_date),
             "blog_content": blog_deets.blog_content,  
-            "blog_img": blog_deets.blog_img,          
+            "blog_img": f"/uploads/{blog_deets.blog_img}",         
             "blog_category_name": blog_deets.post_category.blog_category_name  
         }
 
@@ -248,7 +254,8 @@ async def dashboard(user_id: int = Depends(get_user_from_session), db: Session =
 async def create_blog_post(
     blog: schemas.BlogRequest,
     user_id: int = Depends(get_user_from_session),
-    db: Session = Depends(dependencies.get_db)
+    db: Session = Depends(dependencies.get_db),
+    blog_img: UploadFile = File(...)
 ):
     if not user_id:
         raise HTTPException(status_code=401, detail="You must be signed in to create a blog post")
@@ -258,13 +265,17 @@ async def create_blog_post(
     if available_article:
         raise HTTPException(status_code=400, detail="This blog post has been published already!")
 
+    image_path = f"uploads/{blog_img.filename}"
+    with open(image_path, "wb") as image_file:
+        image_file.write(blog_img.file.read())
+
     db_blogger = models.Blog(
-        blog_title=blog.blog_title,
-        blog_category_id=blog.blog_category_id,
-        blog_content=blog.blog_content,
-        blog_author=user_id, 
-        blog_date=blog.blog_date,
-        blog_img=blog.blog_img
+        blog_title = blog.blog_title,
+        blog_category_id = blog.blog_category_id,
+        blog_content = blog.blog_content,
+        blog_author = user_id, 
+        blog_date = blog.blog_date,
+        blog_img = image_path 
     )
 
     if blog.blog_title and blog.blog_category_id and blog.blog_content and user_id:
@@ -439,15 +450,12 @@ async def update_category(id: int, category: str, description: Optional[str] = N
     return {"blog_category_name": category_check.blog_category_name, "blog_category_description": category_check.blog_category_description}
 
 
-
-
-
 @starter.put("/blog/{blog_id}", response_model=schemas.BlogResponse)
 async def update_blog_post(
     blog_id: int,
     blog_title: str = Form("title"),
     blog_content: str = Form("content"),
-    blog_img: str = Form("img"),
+    blog_img: UploadFile = File("img"),
     user: models.User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
@@ -458,12 +466,18 @@ async def update_blog_post(
     if existing_blog.blog_author_id != user.id:
         raise HTTPException(status_code=403, detail="You don't have permission to update this blog post")
 
+    if blog_img:
+        image_path = f"uploads/{blog_img.filename}"
+        with open(image_path, "wb") as image_file:
+            image_file.write(blog_img.file.read())
+        existing_blog.blog_img = image_path 
+
     existing_blog.blog_title = blog_title
     existing_blog.blog_content = blog_content  
-
     db.commit()
     db.refresh(existing_blog) 
     return existing_blog
+
 
 
 
