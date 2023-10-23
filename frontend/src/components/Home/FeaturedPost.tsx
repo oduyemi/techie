@@ -16,9 +16,21 @@ interface Blog {
     blog_author: string[];
 }
 
+interface BlogCategory {
+    blog_title: string;
+    blog_author: string;
+    blog_date: string;
+    // blog_content: string;
+    blog_img: string;
+    blog_category_name: string;
+}
+
+
 
 export const FeaturedPost = () => {
     const [latestBlog, setLatestBlog] = useState<Blog | null>(null);
+    const [dataBlog, setDataBlog] = useState<BlogCategory[]>([]);
+    const [frontendBlog, setFrontendBlog] = useState<BlogCategory[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -34,69 +46,127 @@ export const FeaturedPost = () => {
         fetchData();
     }, []);
 
+    useEffect(() => {
+        const fetchData = async () => {
+        try {
+            const response = await fetch("https://techieapi.onrender.com/blogs-by-category/1");
+            const data = await response.json();
+            setDataBlog(data[0]);
+        } catch (error) {
+            console.error('Error fetching blog data:', error);
+        }
+        };
+
+        fetchData();
+    }, []);
+
+    const renderRandomDataBlogs = () => {
+        if (dataBlog.length === 0) {
+            return <Typography variant="h5">No blog post available at the moment</Typography>;
+        }
+    
+        const shuffledDataBlogs = [...dataBlog].sort(() => Math.random() - 0.5).slice(0, 2);
+    
+        return shuffledDataBlogs.map((blog) => (
+            <Box key={blog.blog_title} className="single_post post_1">
+                <Box className="single_post_img mr-4">
+                    <Image
+                        src={blog.blog_img} 
+                        alt="Featured Post"
+                        width={200}
+                        height={200}
+                        className="h-full w-full object-cover"
+                    />
+                </Box>
+                    <Box className="single_post_text text-center mr-4">
+                    <Link href=""><Typography variant="h5" className="text-pinkie text-sm"> {`${dataBlog?.blog_category_name}`}</Typography></Link> 
+                        <Link href=""><Typography variant="h2" className="text-pee hover:text-pinkie text-4xl">{`${dataBlog.blog_title}`} </Typography></Link> 
+                        <Typography variant="h5" className="text-fadedpee text-sm" paragraph>{`Posted on ${latestBlog.blog_date} by ${Array.isArray(dataBlog.blog_author) ? dataBlog.blog_author.join(', ') : dataBlog.blog_author}`}</Typography>
+                    </Box>
+            </Box>
+        ));
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+        try {
+            const response = await fetch("https://techieapi.onrender.com/blogs-by-category/4");
+            const data = await response.json();
+            setFrontendBlog(data[0]);
+        } catch (error) {
+            console.error('Error fetching blog data:', error);
+        }
+        };
+
+        fetchData();
+    }, []);
+
+    const renderRandomFrontendBlogs = () => {
+        if (frontendBlog.length === 0) {
+            return <Typography variant="h5">No blog post available at the moment</Typography>;
+        }
+    
+        const shuffledFrontendBlogs = [...frontendBlog].sort(() => Math.random() - 0.5).slice(0, 2);
+
+        return shuffledFrontendaBlogs.map((blog) => (
+            <Box key={blog.blog_title} className="single_post post_1">
+                <Box className="single_post_img mr-4">
+                    <Image
+                        src={blog.blog_img}  
+                        alt="Featured Post"
+                        width={200}
+                        height={200}
+                        className="h-full w-full object-cover"
+                    />
+                </Box>
+                    <Box className="single_post_text text-center mr-4">
+                    <Link href=""><Typography variant="h5" className="text-pinkie text-sm"> {`${frontendBlog?.blog_category_name}`}</Typography></Link> 
+                        <Link href=""><Typography variant="h2" className="text-pee hover:text-pinkie text-4xl">{`${frontendBlog.blog_title}`} </Typography></Link> 
+                        <Typography variant="h5" className="text-fadedpee text-sm" paragraph>{`Posted on ${frontendBlog.blog_date} by ${Array.isArray(frontendBlog.blog_author) ? frontendBlog.blog_author.join(', ') : frontendBlog.blog_author}`}</Typography>
+                    </Box>
+            </Box>
+        ));
+    };
+
     return(
-        <Box maxWidth="xl" className="all_post section_padding mt-10">
+        <Box maxWidth="xl" className="all_post section_padding mt-10 datablog">
         <Box>
             <Box maxWidth="xl" sx={{ display:"flex", alignItems:"space-between", justifyContent:"center"}} className="mx-auto">
                 <Box >
                     <Box>
-                        {latestBlog && (
                             <Box maxWidth="xl" className="single_post post_1 feature_post">
-                                <Box className="single_post_img mt-14">
-                                <Image
-                                    src={`/uploads/${latestBlog.blog_img}`}
-                                    alt="Featured Post"
-                                    width={400}
-                                    height={400}
-                                    className="h-full w-full object-cover"
-                                    />
-
-
+                                <Box>
+                                    {renderRandomDataBlogs()}
                                 </Box>
-                                <Box className="single_post_text text-center">
-                                    <Link href=""><Typography variant="h5" className="text-pinkie text-sm">{latestBlog.blog_category}</Typography></Link> 
-                                    <Link href=""><Typography variant="h2" className="text-pee hover:text-pinkie text-4xl">{latestBlog.blog_title} </Typography></Link> 
-                                    <Typography variant="h5" className="text-fadedpee text-sm" paragraph>{`Posted on ${latestBlog.blog_date} by ${Array.isArray(latestBlog.blog_author) ? latestBlog.blog_author.join(', ') : latestBlog.blog_author}`}</Typography>
-                                </Box>
+                                
                             </Box>
-                        )}
                     </Box>
                     <Box maxWidth="l" sx={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>
                     <Box >
-                        <Box className="single_post post_1">
-                            <Box className="single_post_img mr-4">
-                            <Image
-                                    src="/assets/images/post/post_18.png"
-                                    alt="Featured Post"
-                                    width={200}
-                                    height={200}
-                                    className="h-full w-full object-cover"
-                                />
-                            </Box>
-                            <Box className="single_post_text text-center mr-4">
-                            <Link href=""><Typography variant="h5" className="text-pinkie text-sm"> Data Analytics / Data Science</Typography></Link> 
-                                <Link href=""><Typography variant="h2" className="text-pee hover:text-pinkie text-4xl">Say the D-Word </Typography></Link> 
-                                <Typography variant="h5" className="text-fadedpee text-sm" paragraph>Posted on April 15, 2019 by Fname Lname</Typography>
-                            </Box>
+                        <Box  maxWidth="xl" className="single_post post_1 feature_post">
+                            {renderRandomFrontendBlogs()}
                         </Box>
                     </Box>
                     <Box >
+                        {latestBlog && (
                             <Box className="single_post post_1">
-                                <Box className="single_post_img">
+                                <Box className="single_post_img mr-4">
                                 <Image
-                                    src="/assets/images/post/post_19.png"
-                                    alt="Featured Post"
-                                    width={200}
-                                    height={200}
-                                    className="h-full w-full object-cover"
-                                />
+                                        src={`${dataBlog.blog_img}`}
+                                        alt="Featured Post"
+                                        width={200}
+                                        height={200}
+                                        className="h-full w-full object-cover"
+                                    />
                                 </Box>
-                                <Box className="single_post_text text-center">
-                                <Link href=""><Typography variant="h5" className="text-pinkie text-sm"> Data Analytics / Data Science</Typography></Link> 
-                                <Link href=""><Typography variant="h2" className="text-pee hover:text-pinkie text-4xl">Say the D-Word </Typography></Link> 
-                                <Typography variant="h5" className="text-fadedpee text-sm" paragraph>Posted on April 15, 2019 by Fname Lname</Typography>
+                                <Box className="single_post_text text-center mr-4">
+                                <Link href=""><Typography variant="h5" className="text-pinkie text-sm"> {`${dataBlog.blog_category}`}</Typography></Link> 
+                                    <Link href=""><Typography variant="h2" className="text-pee hover:text-pinkie text-4xl">{`${dataBlog.blog_title}`} </Typography></Link> 
+                                    <Typography variant="h5" className="text-fadedpee text-sm" paragraph>{`Posted on ${latestBlog.blog_date} by ${Array.isArray(dataBlog.blog_author) ? dataBlog.blog_author.join(', ') : dataBlog.blog_author}`}</Typography>
                                 </Box>
                             </Box>
+                        )}  
+                           
                     </Box>
                     </Box>
                     <Box sx={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>
@@ -122,7 +192,7 @@ export const FeaturedPost = () => {
                             <Box className="single_post post_1">
                                 <Box className="single_post_img">
                                 <Image
-                                    src="/assets/images/post/post_21.png"
+                                    // src="/assets/images/post/post_21.png"
                                     alt="Featured Post"
                                     width={200}
                                     height={200}
