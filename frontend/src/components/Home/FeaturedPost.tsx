@@ -35,7 +35,7 @@ export const FeaturedPost = () => {
     useEffect(() => {
         const fetchData = async () => {
         try {
-            const response = await fetch("https://techieapi.onrender.com/blogs");
+            // const response = await fetch("https://techieapi.onrender.com/blogs");
             const data = await response.json();
             setLatestBlog(data[0]);
         } catch (error) {
@@ -49,7 +49,7 @@ export const FeaturedPost = () => {
     useEffect(() => {
         const fetchData = async () => {
         try {
-            const response = await fetch("https://techieapi.onrender.com/blogs-by-category/1");
+            // const response = await fetch("https://techieapi.onrender.com/blogs-by-category/1");
             const data = await response.json();
             setDataBlog(data[0]);
         } catch (error) {
